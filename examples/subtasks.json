@@ -1,0 +1,17 @@
+{
+  "request": "Ship a docs-heavy feature with browser evidence",
+  "subtasks": [
+    {
+      "id": "read-docs",
+      "task": "Read the PDF and extract requirements"
+    },
+    {
+      "id": "test-ui",
+      "task": "Use the browser to verify the UI"
+    },
+    {
+      "id": "ship-report",
+      "task": "Prepare the ShipSpec report and verification handoff"
+    }
+  ]
+}

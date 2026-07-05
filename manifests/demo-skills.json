@@ -1,0 +1,32 @@
+{
+  "skills": [
+    {
+      "skill_id": "shipspec",
+      "name": "shipspec",
+      "triggers": ["mission", "spec", "verification"],
+      "required_for": ["ship"],
+      "path": "../skills/shipspec/SKILL.md"
+    },
+    {
+      "skill_id": "test-driven-development",
+      "name": "test-driven-development",
+      "triggers": ["test", "tests", "implementation", "bugfix"],
+      "required_for": [],
+      "path": "../skills/test-driven-development/SKILL.md"
+    },
+    {
+      "skill_id": "frontend-testing-debugging",
+      "name": "frontend-testing-debugging",
+      "triggers": ["browser", "ui", "playwright"],
+      "required_for": [],
+      "path": "../skills/frontend-testing-debugging/SKILL.md"
+    },
+    {
+      "skill_id": "pdf-reading",
+      "name": "pdf-reading",
+      "triggers": ["pdf", "extract", "document"],
+      "required_for": [],
+      "path": "../skills/pdf-reading/SKILL.md"
+    }
+  ]
+}

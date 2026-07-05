@@ -1,0 +1,51 @@
+{
+  "title": "Upgrade skill-router demo to use manifest-loaded skills, content-hash cache, routed skill confidence, audit logs, mismatch feedback, and promotion gates",
+  "slug": "upgrade-skill-router-demo-to-use-manifest-loaded-skills-content-hash-cache-route",
+  "request": "Upgrade skill-router demo to use manifest-loaded skills, content-hash cache, routed skill confidence, audit logs, mismatch feedback, and promotion gates",
+  "phase": "review-ready",
+  "risk": {
+    "level": "medium",
+    "reasons": [
+      "next action pending: gsd review"
+    ]
+  },
+  "likelyFiles": [
+    "manifests/demo-skills.json",
+    "src/skill_router_demo/router.py",
+    "tests/test_skill_router.py",
+    "src/skill_router_demo/__init__.py",
+    "src/skill_router_demo/__main__.py"
+  ],
+  "nextAction": {
+    "command": "open .gsd/reports/upgrade-skill-router-demo-to-use-manifest-loaded-skills-content-hash-cache-route.md",
+    "reason": "Verification evidence passed and the review report is ready.",
+    "otherCommands": [
+      "gsd share",
+      "gsd ui"
+    ]
+  },
+  "validation": {
+    "spec": "pass",
+    "ready": "pass",
+    "errors": []
+  },
+  "artifacts": {
+    "mission": ".gsd/missions/upgrade-skill-router-demo-to-use-manifest-loaded-skills-content-hash-cache-route.md",
+    "missionJson": ".gsd/missions/upgrade-skill-router-demo-to-use-manifest-loaded-skills-content-hash-cache-route.json",
+    "reasoning": ".gsd/reasoning/upgrade-skill-router-demo-to-use-manifest-loaded-skills-content-hash-cache-route.md",
+    "prompt": ".gsd/prompts/upgrade-skill-router-demo-to-use-manifest-loaded-skills-content-hash-cache-route.md",
+    "pack": ".gsd/packs/upgrade-skill-router-demo-to-use-manifest-loaded-skills-content-hash-cache-route.md",
+    "context": ".gsd/context/upgrade-skill-router-demo-to-use-manifest-loaded-skills-content-hash-cache-route.md",
+    "report": ".gsd/reports/upgrade-skill-router-demo-to-use-manifest-loaded-skills-content-hash-cache-route.md",
+    "reflection": null,
+    "ui": ".gsd/ui/index.html"
+  },
+  "safety": {
+    "localOnly": true,
+    "externalActions": false,
+    "destructiveActions": false,
+    "deployment": false,
+    "maxLoops": 1
+  },
+  "generatedAt": "2026-07-04T06:04:48.030Z"
+}

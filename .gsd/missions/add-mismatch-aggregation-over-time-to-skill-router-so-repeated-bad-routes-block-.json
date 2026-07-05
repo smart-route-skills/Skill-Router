@@ -1,0 +1,54 @@
+{
+  "title": "Add mismatch aggregation over time to skill-router so repeated bad routes block promotion and suggest manifest trigger updates",
+  "slug": "add-mismatch-aggregation-over-time-to-skill-router-so-repeated-bad-routes-block-",
+  "request": "Add mismatch aggregation over time to skill-router so repeated bad routes block promotion and suggest manifest trigger updates",
+  "phase": "review-ready",
+  "risk": {
+    "level": "medium",
+    "reasons": [
+      "next action pending: gsd review"
+    ]
+  },
+  "likelyFiles": [
+    "tests/__pycache__/test_skill_router.cpython-314-pytest-9.0.2.pyc",
+    "tests/test_skill_router.py",
+    "src/skill_router_demo/__pycache__/router.cpython-314.pyc",
+    "src/skill_router_demo/router.py",
+    "manifests/demo-skills.json",
+    "src/skill_router_demo/__init__.py",
+    "src/skill_router_demo/__main__.py",
+    "src/skill_router_demo/__pycache__/__init__.cpython-314.pyc"
+  ],
+  "nextAction": {
+    "command": "open .gsd/reports/add-mismatch-aggregation-over-time-to-skill-router-so-repeated-bad-routes-block-.md",
+    "reason": "Verification evidence passed and the review report is ready.",
+    "otherCommands": [
+      "gsd share",
+      "gsd ui"
+    ]
+  },
+  "validation": {
+    "spec": "pass",
+    "ready": "pass",
+    "errors": []
+  },
+  "artifacts": {
+    "mission": ".gsd/missions/add-mismatch-aggregation-over-time-to-skill-router-so-repeated-bad-routes-block-.md",
+    "missionJson": ".gsd/missions/add-mismatch-aggregation-over-time-to-skill-router-so-repeated-bad-routes-block-.json",
+    "reasoning": ".gsd/reasoning/add-mismatch-aggregation-over-time-to-skill-router-so-repeated-bad-routes-block-.md",
+    "prompt": ".gsd/prompts/add-mismatch-aggregation-over-time-to-skill-router-so-repeated-bad-routes-block-.md",
+    "pack": ".gsd/packs/add-mismatch-aggregation-over-time-to-skill-router-so-repeated-bad-routes-block-.md",
+    "context": ".gsd/context/add-mismatch-aggregation-over-time-to-skill-router-so-repeated-bad-routes-block-.md",
+    "report": ".gsd/reports/add-mismatch-aggregation-over-time-to-skill-router-so-repeated-bad-routes-block-.md",
+    "reflection": null,
+    "ui": ".gsd/ui/index.html"
+  },
+  "safety": {
+    "localOnly": true,
+    "externalActions": false,
+    "destructiveActions": false,
+    "deployment": false,
+    "maxLoops": 1
+  },
+  "generatedAt": "2026-07-05T15:56:06.573Z"
+}
