@@ -232,6 +232,10 @@ See [`docs/comparison-with-without-router.md`](docs/comparison-with-without-rout
 
 See [`docs/shipspec-integration.md`](docs/shipspec-integration.md) for a ShipSpec-oriented workflow using planner, builder, tester, reviewer, and release handoffs.
 
+## License
+
+MIT License. See [LICENSE](LICENSE).
+
 ## Repository
 
 GitHub: <https://github.com/smart-route-skills/Skill-Router>
