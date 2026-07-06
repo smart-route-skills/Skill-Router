@@ -5,3 +5,12 @@ __pycache__/
 dist/
 build/
 *.egg-info/
+
+# OS files
+.DS_Store
+
+# Local ShipSpec/Codex working state
+.agent/
+.gsd/
+openspec/.DS_Store
+openspec/changes/.DS_Store
