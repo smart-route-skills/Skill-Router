@@ -1,0 +1,39 @@
+{
+  "name": "skill-router",
+  "version": "0.1.0",
+  "description": "Route subtasks to preselected agent skills before spawning subagents.",
+  "author": {
+    "name": "smart-route-skills",
+    "url": "https://github.com/smart-route-skills"
+  },
+  "homepage": "https://github.com/smart-route-skills/Skill-Router",
+  "repository": "https://github.com/smart-route-skills/Skill-Router",
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "skills",
+    "routing",
+    "subagents",
+    "cli"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Skill Router",
+    "shortDescription": "Route subtasks to preselected agent skills.",
+    "longDescription": "Skill Router helps multi-agent workflows choose one skill per subtask before workers start, generate compact preloaded prompts, hash selected skill files, and log routing decisions for review.",
+    "developerName": "smart-route-skills",
+    "category": "Productivity",
+    "capabilities": [
+      "Skills",
+      "CLI",
+      "Automation"
+    ],
+    "websiteURL": "https://github.com/smart-route-skills/Skill-Router",
+    "defaultPrompt": [
+      "Route these subtasks with Skill Router.",
+      "Generate compact preloaded prompts.",
+      "Compare routed and unrouted skill loading."
+    ],
+    "brandColor": "#2563EB"
+  }
+}
