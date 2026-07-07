@@ -1,8 +1,16 @@
 # Skill Router
 
+[![Python](https://img.shields.io/badge/python-3.11%2B-blue)](pyproject.toml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Status](https://img.shields.io/badge/status-working%20prototype-brightgreen)](docs/comparison-with-without-router.md)
+
 Route subtasks to preselected agent skills before spawning subagents.
 
 Skill Router is a small Python library and CLI for reducing repeated skill discovery in multi-agent workflows. It reads a manifest of local `SKILL.md` files, routes each subtask to the best skill, hashes the selected skill content, and produces compact subagent assignments or prompts.
+
+## Name
+
+The project name is **Skill Router**. The broader idea is smart routing for agent skills: choose the right skill once, then hand compact context to each worker.
 
 ## Why
 
@@ -15,6 +23,12 @@ request -> subtasks -> skill-router -> preloaded subagent prompts
 ```
 
 Each subagent receives one selected skill context and starts by stating why that skill applies.
+
+## Current Status
+
+Skill Router is a working local prototype with a reusable Python library, CLI, examples, tests, comparison evidence, and a Codex skill wrapper. It is ready for local experimentation and integration into an external orchestrator.
+
+See [Roadmap](docs/roadmap.md) for the next product steps.
 
 ## Features
 
