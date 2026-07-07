@@ -4,6 +4,38 @@ Skill Router includes a Codex plugin wrapper at `plugins/skill-router`.
 
 The plugin provides the `$skill-router` skill, which tells Codex how to use the Skill Router CLI to route subtasks once and generate compact preloaded prompts before spawning subagents.
 
+## Skill Path
+
+The marketplace/indexer-friendly skill file is:
+
+```text
+plugins/skill-router/skills/skill-router/SKILL.md
+```
+
+That `SKILL.md` contains the trigger description, workflow, CLI examples, output expectations, and verification commands.
+
+## SkillsMP
+
+SkillsMP indexes public GitHub repositories that contain `SKILL.md` files. This repository is prepared for that style of discovery because the Codex plugin package contains a standard skill folder:
+
+```text
+plugins/skill-router/skills/skill-router/
+├── SKILL.md
+└── agents/openai.yaml
+```
+
+Suggested SkillsMP listing summary:
+
+```text
+Route subtasks to preselected agent skills before spawning subagents. Generates compact preloaded prompts, hashes skill files for cache safety, and logs routing decisions for review.
+```
+
+Suggested tags:
+
+```text
+agents, skills, codex, routing, subagents, cli, automation, python
+```
+
 ## Local Personal Marketplace
 
 A Codex personal marketplace entry has this shape:

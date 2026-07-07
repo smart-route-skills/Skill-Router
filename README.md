@@ -242,11 +242,19 @@ With router, all three subagents accepted their assigned skill and did not need 
 
 See [`docs/comparison-with-without-router.md`](docs/comparison-with-without-router.md).
 
-## Codex Plugin
+## Codex Skill And Plugin
 
-Skill Router also includes a Codex plugin wrapper at [`plugins/skill-router`](plugins/skill-router). The plugin exposes the `$skill-router` skill so Codex can route subtasks and generate compact preloaded prompts without rediscovering the skill catalog in each worker.
+Skill Router includes a Codex plugin wrapper at [`plugins/skill-router`](plugins/skill-router). The plugin exposes the `$skill-router` skill so Codex can route subtasks and generate compact preloaded prompts without rediscovering the skill catalog in each worker.
 
-See [`docs/codex-plugin.md`](docs/codex-plugin.md) for the plugin package shape and local marketplace notes.
+Marketplace/indexer-friendly skill path:
+
+```text
+plugins/skill-router/skills/skill-router/SKILL.md
+```
+
+The bundled skill is intentionally small: it explains when to use Skill Router, how to call the CLI, what assignment output should contain, and how to verify routed prompts.
+
+See [`docs/codex-plugin.md`](docs/codex-plugin.md) for the plugin package shape, local install notes, and SkillsMP guidance.
 
 ## ShipSpec Integration
 
