@@ -246,19 +246,9 @@ See [`docs/comparison-with-without-router.md`](docs/comparison-with-without-rout
 
 Skill Router includes a portable Agent Skill at [`agent-skills/skill-router`](agent-skills/skill-router) and a Codex plugin wrapper at [`plugins/skill-router`](plugins/skill-router). The same `$skill-router` workflow can be used by Claude/Agent Skills-compatible clients and Codex.
 
-Marketplace/indexer-friendly skill path:
+### Setup In Claude
 
-```text
-agent-skills/skill-router/SKILL.md
-```
-
-Codex plugin skill path:
-
-```text
-plugins/skill-router/skills/skill-router/SKILL.md
-```
-
-For Claude.ai, create a portable Agent Skill ZIP and upload it under **Customize > Skills**:
+1. Clone the repo and build the uploadable skill ZIP:
 
 ```bash
 git clone https://github.com/smart-route-skills/Skill-Router.git
@@ -266,13 +256,33 @@ cd Skill-Router
 python3 scripts/package_agent_skill.py
 ```
 
-The ZIP is written to:
+2. Open Claude and go to **Customize > Skills**.
+
+3. Upload the generated ZIP:
 
 ```text
 dist/skill-router-agent-skill.zip
 ```
 
-For a local Codex install from a fresh clone:
+4. Ask Claude to use Skill Router when routing subtasks or generating preloaded agent prompts.
+
+The ZIP contains this portable skill folder:
+
+```text
+skill-router/
+├── SKILL.md
+└── agents/openai.yaml
+```
+
+Marketplace/indexer-friendly skill path:
+
+```text
+agent-skills/skill-router/SKILL.md
+```
+
+### Setup In Codex
+
+Install the Python CLI and local Codex plugin:
 
 ```bash
 git clone https://github.com/smart-route-skills/Skill-Router.git
@@ -282,6 +292,22 @@ python3 scripts/install_codex_plugin.py
 ```
 
 After install, restart Codex or open a new session, then ask for `$skill-router`.
+
+Codex plugin skill path:
+
+```text
+plugins/skill-router/skills/skill-router/SKILL.md
+```
+
+### Other Skills-Compatible Clients
+
+Copy the portable skill folder into your client's configured skills directory:
+
+```bash
+cp -R agent-skills/skill-router <your-skills-directory>/skill-router
+```
+
+Different clients use different skill directories, so check your client's current docs before assuming a path.
 
 The bundled skill is intentionally small: it explains when to use Skill Router, how to call the CLI, what assignment output should contain, and how to verify routed prompts.
 
