@@ -242,6 +242,8 @@ With router, all three subagents accepted their assigned skill and did not need 
 
 See [`docs/comparison-with-without-router.md`](docs/comparison-with-without-router.md).
 
+For a copy/paste Claude Desktop demo, see [`docs/claude-desktop-smoke-test.md`](docs/claude-desktop-smoke-test.md).
+
 ## Agent Skill, Claude, And Codex
 
 Skill Router includes a portable Agent Skill at [`agent-skills/skill-router`](agent-skills/skill-router) and a Codex plugin wrapper at [`plugins/skill-router`](plugins/skill-router). The same `$skill-router` workflow can be used by Claude/Agent Skills-compatible clients and Codex.
