@@ -38,7 +38,16 @@ agents, skills, codex, routing, subagents, cli, automation, python
 
 ## Local Personal Marketplace
 
-A Codex personal marketplace entry has this shape:
+From a fresh clone, install the Python CLI and local Codex plugin:
+
+```bash
+git clone https://github.com/smart-route-skills/Skill-Router.git
+cd Skill-Router
+python3 -m pip install -e .
+python3 scripts/install_codex_plugin.py
+```
+
+The installer copies `plugins/skill-router` to `~/plugins/skill-router` and adds this entry to `~/.agents/plugins/marketplace.json`:
 
 ```json
 {
@@ -49,7 +58,13 @@ A Codex personal marketplace entry has this shape:
 }
 ```
 
-For a local install, copy `plugins/skill-router` to your Codex plugin directory and add the entry to your personal marketplace file.
+Run a dry-run first if you want to inspect the target paths:
+
+```bash
+python3 scripts/install_codex_plugin.py --dry-run
+```
+
+After install, restart Codex or open a new session for plugin discovery to refresh.
 
 ## Verify
 

@@ -252,6 +252,17 @@ Marketplace/indexer-friendly skill path:
 plugins/skill-router/skills/skill-router/SKILL.md
 ```
 
+For a local Codex install from a fresh clone:
+
+```bash
+git clone https://github.com/smart-route-skills/Skill-Router.git
+cd Skill-Router
+python3 -m pip install -e .
+python3 scripts/install_codex_plugin.py
+```
+
+After install, restart Codex or open a new session, then ask for `$skill-router`.
+
 The bundled skill is intentionally small: it explains when to use Skill Router, how to call the CLI, what assignment output should contain, and how to verify routed prompts.
 
 See [`docs/codex-plugin.md`](docs/codex-plugin.md) for the plugin package shape, local install notes, and SkillsMP guidance.
