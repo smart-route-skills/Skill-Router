@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
-"""Install the Skill Router Codex plugin into the local personal marketplace."""
+"""Install the Skill Router Codex plugin into the local personal marketplace.
+
+For Claude, use scripts/package_agent_skill.py to create a ZIP that can be uploaded in Claude under Customize > Skills."""
 
 from __future__ import annotations
 

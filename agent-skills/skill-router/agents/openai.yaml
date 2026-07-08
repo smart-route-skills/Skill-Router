@@ -1,0 +1,4 @@
+interface:
+  display_name: Skill Router
+  short_description: Route subtasks to preloaded skills.
+  default_prompt: Use Skill Router to route subtasks and generate compact preloaded prompts.

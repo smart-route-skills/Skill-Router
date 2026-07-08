@@ -16,9 +16,13 @@ That `SKILL.md` contains the trigger description, workflow, CLI examples, output
 
 ## SkillsMP
 
-SkillsMP indexes public GitHub repositories that contain `SKILL.md` files. This repository is prepared for that style of discovery because the Codex plugin package contains a standard skill folder:
+SkillsMP indexes public GitHub repositories that contain `SKILL.md` files. This repository is prepared for that style of discovery because it contains a portable Agent Skill and a Codex plugin skill:
 
 ```text
+agent-skills/skill-router/
+├── SKILL.md
+└── agents/openai.yaml
+
 plugins/skill-router/skills/skill-router/
 ├── SKILL.md
 └── agents/openai.yaml
@@ -33,7 +37,7 @@ Route subtasks to preselected agent skills before spawning subagents. Generates 
 Suggested tags:
 
 ```text
-agents, skills, codex, routing, subagents, cli, automation, python
+agents, skills, claude, codex, routing, subagents, cli, automation, python
 ```
 
 ## Local Personal Marketplace

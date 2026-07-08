@@ -26,7 +26,7 @@ Each subagent receives one selected skill context and starts by stating why that
 
 ## Current Status
 
-Skill Router is a working local prototype with a reusable Python library, CLI, examples, tests, comparison evidence, and a Codex skill wrapper. It is ready for local experimentation and integration into an external orchestrator.
+Skill Router is a working local prototype with a reusable Python library, CLI, examples, tests, comparison evidence, a portable Agent Skill package, and a Codex plugin wrapper. It is ready for local experimentation and integration into an external orchestrator.
 
 See [Roadmap](docs/roadmap.md) for the next product steps.
 
@@ -242,14 +242,34 @@ With router, all three subagents accepted their assigned skill and did not need 
 
 See [`docs/comparison-with-without-router.md`](docs/comparison-with-without-router.md).
 
-## Codex Skill And Plugin
+## Agent Skill, Claude, And Codex
 
-Skill Router includes a Codex plugin wrapper at [`plugins/skill-router`](plugins/skill-router). The plugin exposes the `$skill-router` skill so Codex can route subtasks and generate compact preloaded prompts without rediscovering the skill catalog in each worker.
+Skill Router includes a portable Agent Skill at [`agent-skills/skill-router`](agent-skills/skill-router) and a Codex plugin wrapper at [`plugins/skill-router`](plugins/skill-router). The same `$skill-router` workflow can be used by Claude/Agent Skills-compatible clients and Codex.
 
 Marketplace/indexer-friendly skill path:
 
 ```text
+agent-skills/skill-router/SKILL.md
+```
+
+Codex plugin skill path:
+
+```text
 plugins/skill-router/skills/skill-router/SKILL.md
+```
+
+For Claude.ai, create a portable Agent Skill ZIP and upload it under **Customize > Skills**:
+
+```bash
+git clone https://github.com/smart-route-skills/Skill-Router.git
+cd Skill-Router
+python3 scripts/package_agent_skill.py
+```
+
+The ZIP is written to:
+
+```text
+dist/skill-router-agent-skill.zip
 ```
 
 For a local Codex install from a fresh clone:
@@ -265,7 +285,7 @@ After install, restart Codex or open a new session, then ask for `$skill-router`
 
 The bundled skill is intentionally small: it explains when to use Skill Router, how to call the CLI, what assignment output should contain, and how to verify routed prompts.
 
-See [`docs/codex-plugin.md`](docs/codex-plugin.md) for the plugin package shape, local install notes, and SkillsMP guidance.
+See [`docs/agent-skill-install.md`](docs/agent-skill-install.md) for Claude, Codex, and SkillsMP install notes.
 
 ## ShipSpec Integration
 
