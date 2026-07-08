@@ -248,7 +248,14 @@ Skill Router includes a portable Agent Skill at [`agent-skills/skill-router`](ag
 
 ### Setup In Claude
 
-1. Clone the repo and build the uploadable skill ZIP:
+Fast path for most users:
+
+1. Download `skill-router-agent-skill.zip` from the [latest GitHub release](https://github.com/smart-route-skills/Skill-Router/releases/latest).
+2. Open Claude and go to **Customize > Skills**.
+3. Upload `skill-router-agent-skill.zip`.
+4. Ask Claude to use Skill Router when routing subtasks or generating preloaded agent prompts.
+
+Build the ZIP yourself from source:
 
 ```bash
 git clone https://github.com/smart-route-skills/Skill-Router.git
@@ -256,15 +263,11 @@ cd Skill-Router
 python3 scripts/package_agent_skill.py
 ```
 
-2. Open Claude and go to **Customize > Skills**.
-
-3. Upload the generated ZIP:
+The generated ZIP is written to:
 
 ```text
 dist/skill-router-agent-skill.zip
 ```
-
-4. Ask Claude to use Skill Router when routing subtasks or generating preloaded agent prompts.
 
 The ZIP contains this portable skill folder:
 

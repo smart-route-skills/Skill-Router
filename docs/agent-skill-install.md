@@ -14,7 +14,17 @@ This folder follows the open Agent Skills shape: a skill directory containing `S
 
 ## Claude.ai
 
-Create the ZIP package:
+Fast path for most users:
+
+1. Download `skill-router-agent-skill.zip` from the latest GitHub release:
+
+```text
+https://github.com/smart-route-skills/Skill-Router/releases/latest
+```
+
+2. Upload the ZIP in Claude under **Customize > Skills**.
+
+Build the ZIP yourself from source:
 
 ```bash
 git clone https://github.com/smart-route-skills/Skill-Router.git
@@ -22,7 +32,7 @@ cd Skill-Router
 python3 scripts/package_agent_skill.py
 ```
 
-Upload the generated ZIP in Claude under **Customize > Skills**:
+The generated ZIP is written to:
 
 ```text
 dist/skill-router-agent-skill.zip
