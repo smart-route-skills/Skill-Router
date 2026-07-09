@@ -1,0 +1,13 @@
+{
+  "name": "skill-router",
+  "version": "0.1.0",
+  "description": "Route subtasks to preselected agent skills before spawning subagents.",
+  "author": {
+    "name": "smart-route-skills",
+    "url": "https://github.com/smart-route-skills"
+  },
+  "homepage": "https://github.com/smart-route-skills/Skill-Router",
+  "repository": "https://github.com/smart-route-skills/Skill-Router",
+  "license": "MIT",
+  "keywords": ["agents", "skills", "routing", "subagents", "cli"]
+}

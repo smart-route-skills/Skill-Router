@@ -285,6 +285,24 @@ Marketplace/indexer-friendly skill path:
 agent-skills/skill-router/SKILL.md
 ```
 
+### Setup As A Claude Code Plugin
+
+Skill Router is also a Claude Code plugin marketplace. Add the marketplace and install the plugin:
+
+```text
+/plugin marketplace add smart-route-skills/Skill-Router
+/plugin install skill-router@skill-router
+```
+
+The install string is `plugin-name@marketplace-name` (both are `skill-router` here). Pull updates later with `/plugin marketplace update skill-router`.
+
+Marketplace manifest paths:
+
+```text
+.claude-plugin/marketplace.json
+plugins/skill-router/.claude-plugin/plugin.json
+```
+
 ### Setup In Codex
 
 Install the Python CLI and local Codex plugin:

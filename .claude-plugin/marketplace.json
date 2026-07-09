@@ -1,0 +1,27 @@
+{
+  "name": "skill-router",
+  "owner": {
+    "name": "smart-route-skills",
+    "url": "https://github.com/smart-route-skills"
+  },
+  "metadata": {
+    "description": "Route requests and subtasks to preselected agent skills before spawning subagents.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "skill-router",
+      "source": "./plugins/skill-router",
+      "description": "Route subtasks to preselected agent skills, generate compact preloaded prompts, and cut repeated skill discovery in multi-agent workflows.",
+      "version": "0.1.0",
+      "author": {
+        "name": "smart-route-skills",
+        "url": "https://github.com/smart-route-skills"
+      },
+      "homepage": "https://github.com/smart-route-skills/Skill-Router",
+      "license": "MIT",
+      "keywords": ["agents", "skills", "routing", "subagents", "cli"],
+      "category": "productivity"
+    }
+  ]
+}
