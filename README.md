@@ -2,7 +2,7 @@
 
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue)](pyproject.toml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Status](https://img.shields.io/badge/status-working%20prototype-brightgreen)](docs/comparison-with-without-router.md)
+[![Version](https://img.shields.io/badge/version-0.1.0-brightgreen)](docs/roadmap.md)
 
 Route subtasks to preselected agent skills before spawning subagents.
 
@@ -49,9 +49,9 @@ Each subagent receives one selected skill context and starts by stating why that
 
 ## Status
 
-Skill Router is a working local prototype with a reusable Python library, CLI, examples, tests, comparison evidence, a portable Agent Skill package, and a Codex plugin wrapper. It is ready for local experimentation and integration into an external orchestrator.
+Skill Router is a working `0.1.0` release: a reusable Python library and CLI with tests, worked examples, a portable Agent Skill package, a Codex plugin, and a Claude Code plugin. It runs locally today and is designed to plug into an external orchestrator.
 
-See [Roadmap](docs/roadmap.md) for the next product steps.
+See [Roadmap](docs/roadmap.md) for what's next.
 
 ## Install
 
