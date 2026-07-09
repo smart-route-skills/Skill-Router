@@ -8,11 +8,22 @@ Route subtasks to preselected agent skills before spawning subagents.
 
 Skill Router is a small Python library and CLI for reducing repeated skill discovery in multi-agent workflows. It reads a manifest of local `SKILL.md` files, routes each subtask to the best skill, hashes the selected skill content, and produces compact subagent assignments or prompts.
 
-## Name
+## Contents
 
-The project name is **Skill Router**. The broader idea is smart routing for agent skills: choose the right skill once, then hand compact context to each worker.
+- [How It Works](#how-it-works)
+- [Features](#features)
+- [Status](#status)
+- [Install](#install)
+- [Quickstart](#quickstart)
+- [Usage](#usage)
+- [Formats](#formats)
+- [Optional OpenAI Fallback](#optional-openai-fallback)
+- [Verification](#verification)
+- [Comparison Evidence](#comparison-evidence)
+- [Integrations](#integrations)
+- [License](#license)
 
-## Why
+## How It Works
 
 In a multi-subagent workflow, each subagent can end up scanning or reasoning over the same skill catalog independently. That repeats context work and makes routing mistakes harder to audit.
 
@@ -22,13 +33,7 @@ Skill Router moves that decision earlier:
 request -> subtasks -> skill-router -> preloaded subagent prompts
 ```
 
-Each subagent receives one selected skill context and starts by stating why that skill applies.
-
-## Current Status
-
-Skill Router is a working local prototype with a reusable Python library, CLI, examples, tests, comparison evidence, a portable Agent Skill package, and a Codex plugin wrapper. It is ready for local experimentation and integration into an external orchestrator.
-
-See [Roadmap](docs/roadmap.md) for the next product steps.
+Each subagent receives one selected skill context and starts by stating why that skill applies. The broader idea is smart routing for agent skills: choose the right skill once, then hand compact context to each worker.
 
 ## Features
 
@@ -42,7 +47,13 @@ See [Roadmap](docs/roadmap.md) for the next product steps.
 - Mismatch and promotion gate helpers
 - Local Python library and CLI
 
-## Install Locally
+## Status
+
+Skill Router is a working local prototype with a reusable Python library, CLI, examples, tests, comparison evidence, a portable Agent Skill package, and a Codex plugin wrapper. It is ready for local experimentation and integration into an external orchestrator.
+
+See [Roadmap](docs/roadmap.md) for the next product steps.
+
+## Install
 
 From the repository checkout:
 
@@ -123,7 +134,40 @@ Compact skill context:
 ...
 ```
 
-## Subtask Input Format
+## Usage
+
+### As A CLI
+
+Use a custom manifest with either command:
+
+```bash
+skill-router route path/to/subtasks.json --manifest path/to/skills.json
+skill-router prompts path/to/subtasks.json --manifest path/to/skills.json
+```
+
+### As A Library
+
+```python
+from skill_router_demo import (
+    build_assignment_plan,
+    build_prompt_plan,
+    load_skills_from_manifest,
+    load_subtask_request,
+)
+
+skills = load_skills_from_manifest("manifests/demo-skills.json")
+request = load_subtask_request("examples/subtasks.json")
+
+assignments = build_assignment_plan(request, skills)
+prompts = build_prompt_plan(request, skills)
+
+print(assignments["subagents"][0]["skill_id"])
+print(prompts["prompts"][0]["prompt"])
+```
+
+## Formats
+
+### Subtask Input
 
 ```json
 {
@@ -136,7 +180,7 @@ Compact skill context:
 }
 ```
 
-## Skill Manifest Format
+### Skill Manifest
 
 The manifest points to real skill files:
 
@@ -155,13 +199,6 @@ The manifest points to real skill files:
 ```
 
 The router reads the referenced `SKILL.md` file and hashes its content. When the skill file changes, the hash changes too, preventing stale skill context from being reused silently.
-
-Use a custom manifest:
-
-```bash
-skill-router route path/to/subtasks.json --manifest path/to/skills.json
-skill-router prompts path/to/subtasks.json --manifest path/to/skills.json
-```
 
 ## Optional OpenAI Fallback
 
@@ -184,26 +221,6 @@ skill-router route examples/subtasks.json --openai-fallback --openai-model gpt-5
 ```
 
 Tests use injected fake fallback functions and do not call the OpenAI API.
-
-## Use As A Library
-
-```python
-from skill_router_demo import (
-    build_assignment_plan,
-    build_prompt_plan,
-    load_skills_from_manifest,
-    load_subtask_request,
-)
-
-skills = load_skills_from_manifest("manifests/demo-skills.json")
-request = load_subtask_request("examples/subtasks.json")
-
-assignments = build_assignment_plan(request, skills)
-prompts = build_prompt_plan(request, skills)
-
-print(assignments["subagents"][0]["skill_id"])
-print(prompts["prompts"][0]["prompt"])
-```
 
 ## Verification
 
@@ -240,15 +257,31 @@ With router, all three subagents accepted their assigned skill and did not need 
 | `test-ui` | `frontend-testing-debugging` |
 | `ship-report` | `shipspec` |
 
-See [`docs/comparison-with-without-router.md`](docs/comparison-with-without-router.md).
+See [`docs/comparison-with-without-router.md`](docs/comparison-with-without-router.md). For a copy/paste Claude Desktop demo, see [`docs/claude-desktop-smoke-test.md`](docs/claude-desktop-smoke-test.md).
 
-For a copy/paste Claude Desktop demo, see [`docs/claude-desktop-smoke-test.md`](docs/claude-desktop-smoke-test.md).
-
-## Agent Skill, Claude, And Codex
+## Integrations
 
 Skill Router includes a portable Agent Skill at [`agent-skills/skill-router`](agent-skills/skill-router) and a Codex plugin wrapper at [`plugins/skill-router`](plugins/skill-router). The same `$skill-router` workflow can be used by Claude/Agent Skills-compatible clients and Codex.
 
-### Setup In Claude
+### Claude Code Plugin
+
+Skill Router is a Claude Code plugin marketplace. Add the marketplace and install the plugin:
+
+```text
+/plugin marketplace add smart-route-skills/Skill-Router
+/plugin install skill-router@skill-router
+```
+
+The install string is `plugin-name@marketplace-name` (both are `skill-router` here). Pull updates later with `/plugin marketplace update skill-router`.
+
+Marketplace manifest paths:
+
+```text
+.claude-plugin/marketplace.json
+plugins/skill-router/.claude-plugin/plugin.json
+```
+
+### Claude Agent Skill
 
 Fast path for most users:
 
@@ -285,25 +318,7 @@ Marketplace/indexer-friendly skill path:
 agent-skills/skill-router/SKILL.md
 ```
 
-### Setup As A Claude Code Plugin
-
-Skill Router is also a Claude Code plugin marketplace. Add the marketplace and install the plugin:
-
-```text
-/plugin marketplace add smart-route-skills/Skill-Router
-/plugin install skill-router@skill-router
-```
-
-The install string is `plugin-name@marketplace-name` (both are `skill-router` here). Pull updates later with `/plugin marketplace update skill-router`.
-
-Marketplace manifest paths:
-
-```text
-.claude-plugin/marketplace.json
-plugins/skill-router/.claude-plugin/plugin.json
-```
-
-### Setup In Codex
+### Codex
 
 Install the Python CLI and local Codex plugin:
 
@@ -336,7 +351,7 @@ The bundled skill is intentionally small: it explains when to use Skill Router, 
 
 See [`docs/agent-skill-install.md`](docs/agent-skill-install.md) for Claude, Codex, and SkillsMP install notes.
 
-## ShipSpec Integration
+### ShipSpec
 
 See [`docs/shipspec-integration.md`](docs/shipspec-integration.md) for a ShipSpec-oriented workflow using planner, builder, tester, reviewer, and release handoffs.
 
