@@ -222,6 +222,16 @@ skill-router route examples/subtasks.json --openai-fallback --openai-model gpt-5
 
 Tests use injected fake fallback functions and do not call the OpenAI API.
 
+### When the fallback fires
+
+The fallback runs in two cases: when no skill matches a subtask, and when the top two skills score within a confidence margin of each other (a near-tie the keyword router can't break confidently). The margin defaults to `0.15` and is configurable:
+
+```bash
+skill-router route examples/subtasks.json --openai-fallback --ambiguity-margin 0.2
+```
+
+Set `--ambiguity-margin 0` to only defer to the fallback on exact ties. An explicitly named (`$skill`) or required skill is treated as a strong signal and is never sent to the fallback.
+
 ## Verification
 
 Run:

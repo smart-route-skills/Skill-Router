@@ -344,12 +344,16 @@ class SkillRouter:
         skills: Iterable[Skill],
         llm_fallback: LlmFallback | None = None,
         route_log_path: str | Path | None = None,
+        ambiguity_margin: float = 0.15,
     ):
+        if ambiguity_margin < 0.0:
+            raise ValueError("ambiguity_margin must be non-negative")
         self._skills = tuple(skills)
         self._skills_by_name = {skill.name: skill for skill in self._skills}
         self._skills_by_id = {skill.id: skill for skill in self._skills}
         self._llm_fallback = llm_fallback
         self._route_log_path = Path(route_log_path) if route_log_path is not None else None
+        self._ambiguity_margin = ambiguity_margin
 
     def route(self, mission: str, mode: RouteMode | str = RouteMode.AUTO) -> RoutingPlan:
         route_mode = RouteMode(mode)
@@ -383,7 +387,9 @@ class SkillRouter:
         assignments: list[SubagentAssignment] = []
         for subtask in subtask_request.subtasks:
             plan = self.route(subtask.task)
-            if self._llm_fallback is not None and _is_ambiguous_assignment_plan(plan):
+            if self._llm_fallback is not None and _is_ambiguous_assignment_plan(
+                plan, self._ambiguity_margin
+            ):
                 plan = self._route_with_fallback(subtask.task)
                 self._write_route_log(plan)
             assignments.append(_assignment_from_plan(subtask, plan, self._skills_by_name))
@@ -598,8 +604,11 @@ def build_assignment_plan(
     subtask_request: SubtaskRequest,
     skills: Iterable[Skill],
     llm_fallback: LlmFallback | None = None,
+    ambiguity_margin: float = 0.15,
 ) -> dict[str, object]:
-    router = SkillRouter(skills, llm_fallback=llm_fallback)
+    router = SkillRouter(
+        skills, llm_fallback=llm_fallback, ambiguity_margin=ambiguity_margin
+    )
     assignments = router.assign_subtasks(subtask_request)
     return {
         "request": subtask_request.request,
@@ -611,9 +620,12 @@ def build_prompt_plan(
     subtask_request: SubtaskRequest,
     skills: Iterable[Skill],
     llm_fallback: LlmFallback | None = None,
+    ambiguity_margin: float = 0.15,
 ) -> dict[str, object]:
     skill_tuple = tuple(skills)
-    router = SkillRouter(skill_tuple, llm_fallback=llm_fallback)
+    router = SkillRouter(
+        skill_tuple, llm_fallback=llm_fallback, ambiguity_margin=ambiguity_margin
+    )
     assignments = router.assign_subtasks(subtask_request)
     prompts = router.prompts_for_assignments(assignments)
     return {
@@ -761,6 +773,15 @@ def main(argv: Sequence[str] | None = None) -> int:
         default=os.environ.get("OPENAI_ROUTER_MODEL", "gpt-5.5"),
         help="OpenAI model for fallback routing when --openai-fallback is set.",
     )
+    parser.add_argument(
+        "--ambiguity-margin",
+        type=float,
+        default=0.15,
+        help=(
+            "Confidence gap below which the top two skills are treated as a "
+            "near-tie and handed to the LLM fallback (default: 0.15)."
+        ),
+    )
     args = parser.parse_args(argv)
 
     if args.command == "demo":
@@ -776,9 +797,13 @@ def main(argv: Sequence[str] | None = None) -> int:
             else None
         )
         if args.command == "route":
-            output = build_assignment_plan(subtask_request, skills, llm_fallback)
+            output = build_assignment_plan(
+                subtask_request, skills, llm_fallback, args.ambiguity_margin
+            )
         else:
-            output = build_prompt_plan(subtask_request, skills, llm_fallback)
+            output = build_prompt_plan(
+                subtask_request, skills, llm_fallback, args.ambiguity_margin
+            )
 
     print(json.dumps(output, indent=2, sort_keys=True))
     return 0
@@ -945,15 +970,25 @@ def _plan_from_routed_skills(
     )
 
 
-def _is_ambiguous_assignment_plan(plan: RoutingPlan) -> bool:
+def _is_ambiguous_assignment_plan(plan: RoutingPlan, margin: float = 0.0) -> bool:
+    """Return True when the top two skills are too close to pick confidently.
+
+    ``margin`` is the confidence gap below which routing is considered
+    ambiguous. With ``margin=0`` only exact ties count; a positive margin also
+    flags near-ties so the LLM fallback can break them. A required or explicitly
+    named top skill is a strong deterministic signal and is never treated as
+    ambiguous.
+    """
     if len(plan.routed_skills) < 2:
         return False
 
-    top_confidence = max(skill.confidence for skill in plan.routed_skills)
-    top_matches = tuple(
-        skill for skill in plan.routed_skills if skill.confidence == top_confidence
+    ranked = sorted(
+        plan.routed_skills, key=lambda skill: skill.confidence, reverse=True
     )
-    return len(top_matches) > 1
+    top, second = ranked[0], ranked[1]
+    if top.required:
+        return False
+    return (top.confidence - second.confidence) <= margin
 
 
 def _assignment_from_plan(

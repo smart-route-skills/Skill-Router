@@ -371,6 +371,100 @@ class SkillRouterTests(unittest.TestCase):
         self.assertEqual(assignment["skill_id"], "frontend-testing-debugging")
         self.assertEqual(assignment["selection_mode"], "llm_fallback")
 
+    def test_margin_flags_near_tie_that_is_not_an_exact_tie(self):
+        skills = [
+            Skill(skill_id="p", name="p", triggers=("p1", "p2")),
+            Skill(skill_id="q", name="q", triggers=("q1", "q2", "q3")),
+        ]
+        request = SubtaskRequest(
+            request="work",
+            subtasks=(Subtask(id="near", task="handle p1 and q1 work"),),
+        )
+        calls = []
+
+        def fallback(mission, catalog):
+            calls.append(mission)
+            return {"skills": ["q"]}
+
+        # p scores 0.75, q scores 0.67: a near-tie within the default margin.
+        router = SkillRouter(skills, llm_fallback=fallback)
+        assignment = router.assign_subtasks(request)[0]
+
+        self.assertEqual(len(calls), 1)
+        self.assertEqual(assignment.selection_mode, "llm_fallback")
+        self.assertEqual(assignment.skill_id, "q")
+
+    def test_zero_margin_keeps_a_near_tie_deterministic(self):
+        skills = [
+            Skill(skill_id="p", name="p", triggers=("p1", "p2")),
+            Skill(skill_id="q", name="q", triggers=("q1", "q2", "q3")),
+        ]
+        request = SubtaskRequest(
+            request="work",
+            subtasks=(Subtask(id="near", task="handle p1 and q1 work"),),
+        )
+        calls = []
+
+        def fallback(mission, catalog):
+            calls.append(mission)
+            return {"skills": ["q"]}
+
+        router = SkillRouter(skills, llm_fallback=fallback, ambiguity_margin=0.0)
+        assignment = router.assign_subtasks(request)[0]
+
+        self.assertEqual(calls, [])
+        self.assertEqual(assignment.selection_mode, RouteMode.DETERMINISTIC.value)
+        self.assertEqual(assignment.skill_id, "p")
+
+    def test_clear_winner_is_not_treated_as_ambiguous(self):
+        skills = [
+            Skill(skill_id="p", name="p", triggers=("p1", "p2")),
+            Skill(skill_id="q", name="q", triggers=("q1", "q2", "q3")),
+        ]
+        request = SubtaskRequest(
+            request="work",
+            subtasks=(Subtask(id="clear", task="handle p1 p2 q1 work"),),
+        )
+        calls = []
+
+        def fallback(mission, catalog):
+            calls.append(mission)
+            return {"skills": ["q"]}
+
+        # p matches both triggers (1.0), q matches one (0.67): gap exceeds margin.
+        router = SkillRouter(skills, llm_fallback=fallback)
+        assignment = router.assign_subtasks(request)[0]
+
+        self.assertEqual(calls, [])
+        self.assertEqual(assignment.skill_id, "p")
+
+    def test_required_top_skill_is_never_ambiguous(self):
+        skills = [
+            Skill(skill_id="p", name="p", triggers=(), required_for=("build",)),
+            Skill(skill_id="q", name="q", triggers=("build",)),
+        ]
+        request = SubtaskRequest(
+            request="work",
+            subtasks=(Subtask(id="req", task="build the thing"),),
+        )
+        calls = []
+
+        def fallback(mission, catalog):
+            calls.append(mission)
+            return {"skills": ["q"]}
+
+        # p is required (1.0) and q also scores 1.0, but a required top skill
+        # is a strong signal and must not be handed to the fallback.
+        router = SkillRouter(skills, llm_fallback=fallback)
+        assignment = router.assign_subtasks(request)[0]
+
+        self.assertEqual(calls, [])
+        self.assertEqual(assignment.skill_id, "p")
+
+    def test_negative_ambiguity_margin_is_rejected(self):
+        with self.assertRaises(ValueError):
+            SkillRouter(self.skills, ambiguity_margin=-0.1)
+
     def test_openai_fallback_posts_structured_skill_selection_request(self):
         calls = []
 
