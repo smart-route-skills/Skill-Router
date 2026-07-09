@@ -750,7 +750,7 @@ def run_demo() -> dict[str, int | bool]:
 
 
 def main(argv: Sequence[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(prog="skill-router-demo")
+    parser = argparse.ArgumentParser(prog="skill-router")
     parser.add_argument(
         "command",
         nargs="?",

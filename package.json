@@ -1,9 +1,9 @@
 {
   "scripts": {
-    "lint": "python3 -c \"import ast,pathlib; [ast.parse(p.read_text(), filename=str(p)) for root in ('src','tests') for p in pathlib.Path(root).rglob('*.py')]\"",
+    "lint": "python3 -c \"import ast,pathlib; [ast.parse(p.read_text(), filename=str(p)) for root in ('src','tests','scripts') for p in pathlib.Path(root).rglob('*.py')]\"",
     "test": "PYTHONPATH=src python3 -B -m unittest discover -s tests",
-    "typecheck": "python3 -c \"import ast,pathlib; [ast.parse(p.read_text(), filename=str(p)) for root in ('src','tests') for p in pathlib.Path(root).rglob('*.py')]\"",
-    "test:e2e": "PYTHONPATH=src python3 -B -m skill_router_demo"
+    "typecheck": "python3 -c \"import ast,pathlib; [ast.parse(p.read_text(), filename=str(p)) for root in ('src','tests','scripts') for p in pathlib.Path(root).rglob('*.py')]\"",
+    "test:e2e": "PYTHONPATH=src python3 -B -m skill_router"
   },
   "devDependencies": {}
 }

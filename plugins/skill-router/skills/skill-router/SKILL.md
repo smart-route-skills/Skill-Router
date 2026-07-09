@@ -42,7 +42,7 @@ The installed console script may live at:
 If `skill-router` is not on `PATH`, either call the full path or run the module form from the project:
 
 ```bash
-PYTHONPATH=src python3 -m skill_router_demo --help
+PYTHONPATH=src python3 -m skill_router --help
 ```
 
 ## Quick Workflow

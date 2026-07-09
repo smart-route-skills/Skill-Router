@@ -1,4 +1,4 @@
-"""Demo package for routing agent skills once and sharing loaded context."""
+"""Route agent skills once and share loaded context across subagents."""
 
 from .router import (
     AuditEvent,

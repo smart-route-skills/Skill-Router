@@ -1,14 +1,13 @@
 [project]
-name = "skill-router-demo"
+name = "skill-router"
 version = "0.1.0"
-description = "Demo skill router that shares loaded skill context across subagents."
+description = "Route subtasks to preselected agent skills and share loaded context across subagents."
 readme = "README.md"
 license = "MIT"
 requires-python = ">=3.11"
 
 [project.scripts]
-skill-router = "skill_router_demo.router:main"
-skill-router-demo = "skill_router_demo.router:main"
+skill-router = "skill_router.router:main"
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

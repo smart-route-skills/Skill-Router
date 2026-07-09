@@ -4,8 +4,8 @@ import unittest
 from pathlib import Path
 from tempfile import TemporaryDirectory
 
-import skill_router_demo
-from skill_router_demo.router import (
+import skill_router
+from skill_router.router import (
     MismatchAggregator,
     PromotionGate,
     RouteMode,
@@ -85,11 +85,7 @@ class SkillRouterTests(unittest.TestCase):
         self.assertEqual(pyproject["project"]["readme"], "README.md")
         self.assertEqual(
             pyproject["project"]["scripts"]["skill-router"],
-            "skill_router_demo.router:main",
-        )
-        self.assertEqual(
-            pyproject["project"]["scripts"]["skill-router-demo"],
-            "skill_router_demo.router:main",
+            "skill_router.router:main",
         )
 
     def test_package_root_exports_reusable_library_api(self):
@@ -102,10 +98,10 @@ class SkillRouterTests(unittest.TestCase):
             "load_subtask_request",
         }
 
-        self.assertTrue(expected_exports.issubset(set(skill_router_demo.__all__)))
-        self.assertIs(skill_router_demo.Subtask, Subtask)
-        self.assertIs(skill_router_demo.SubtaskRequest, SubtaskRequest)
-        self.assertIs(skill_router_demo.build_assignment_plan, build_assignment_plan)
+        self.assertTrue(expected_exports.issubset(set(skill_router.__all__)))
+        self.assertIs(skill_router.Subtask, Subtask)
+        self.assertIs(skill_router.SubtaskRequest, SubtaskRequest)
+        self.assertIs(skill_router.build_assignment_plan, build_assignment_plan)
 
     def test_manifest_validation_rejects_missing_skill_file(self):
         with TemporaryDirectory() as tmp_dir:

@@ -1,5 +1,6 @@
 # Skill Router
 
+[![CI](https://github.com/smart-route-skills/Skill-Router/actions/workflows/ci.yml/badge.svg)](https://github.com/smart-route-skills/Skill-Router/actions/workflows/ci.yml)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue)](pyproject.toml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Version](https://img.shields.io/badge/version-0.1.0-brightgreen)](docs/roadmap.md)
@@ -63,17 +64,16 @@ cd Skill-Router
 python3 -m pip install -e .
 ```
 
-This installs two equivalent commands:
+This installs the `skill-router` command:
 
 ```bash
 skill-router --help
-skill-router-demo --help
 ```
 
 If your Python scripts directory is not on `PATH`, use the module form while developing:
 
 ```bash
-PYTHONPATH=src python3 -m skill_router_demo --help
+PYTHONPATH=src python3 -m skill_router --help
 ```
 
 ## Quickstart
@@ -148,7 +148,7 @@ skill-router prompts path/to/subtasks.json --manifest path/to/skills.json
 ### As A Library
 
 ```python
-from skill_router_demo import (
+from skill_router import (
     build_assignment_plan,
     build_prompt_plan,
     load_skills_from_manifest,
@@ -268,6 +268,18 @@ With router, all three subagents accepted their assigned skill and did not need 
 | `ship-report` | `shipspec` |
 
 See [`docs/comparison-with-without-router.md`](docs/comparison-with-without-router.md). For a copy/paste Claude Desktop demo, see [`docs/claude-desktop-smoke-test.md`](docs/claude-desktop-smoke-test.md).
+
+### Routing Accuracy
+
+A reproducible benchmark routes a labeled set of subtasks and reports accuracy. Run it with `PYTHONPATH=src python3 scripts/benchmark.py`. On the 15-subtask reference set:
+
+| Routing | Accuracy | Deferred to fallback |
+| --- | --- | --- |
+| Deterministic only (no fallback) | 67% | — |
+| + fallback, margin `0.00` (exact ties only) | 93% (upper bound) | 4 |
+| + fallback, margin `0.15` (default) | 100% (upper bound) | 5 |
+
+Deterministic keyword routing handles clear cases but misses no-match and near-tie subtasks. The fallback rows are an upper bound assuming a perfect fallback; the default margin defers one extra near-tie that exact-tie-only routing gets wrong. See [`docs/benchmark.md`](docs/benchmark.md) for methodology and caveats.
 
 ## Integrations
 

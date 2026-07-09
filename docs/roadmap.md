@@ -9,9 +9,13 @@ Skill Router is intentionally small: route skills once, preload workers with com
 - SHA-256 skill content hashes
 - Deterministic trigger routing
 - Optional OpenAI-backed fallback hook
+- Margin-based fallback for near-tie routing
 - Subagent assignment JSON
 - Compact preloaded prompt generation
 - Comparison evidence for with-router vs without-router runs
+- Reproducible routing-accuracy benchmark
+- Claude Code plugin and marketplace
+- Continuous integration on Python 3.11 and 3.12
 - MIT license and GitHub-facing README
 
 ## Next
@@ -20,7 +24,6 @@ Skill Router is intentionally small: route skills once, preload workers with com
 - Add more realistic example manifests for common pipelines such as PDF -> analysis -> chart -> report -> email.
 - Add richer route metrics: selection mode counts, fallback counts, and mismatch summaries.
 - Add a minimal integration guide for external orchestrators.
-- Add CI once the repository is ready for public collaboration.
 
 ## Later
 

@@ -1,0 +1,20 @@
+{
+  "description": "Labeled routing benchmark for the demo skill catalog (manifests/demo-skills.json). Each item pairs a subtask with the skill a human would assign. Used by scripts/benchmark.py to measure routing accuracy.",
+  "subtasks": [
+    {"id": "s01", "task": "Read the pdf and extract the requirements", "expected": "pdf-reading"},
+    {"id": "s02", "task": "Verify the UI in the browser with playwright", "expected": "frontend-testing-debugging"},
+    {"id": "s03", "task": "Write unit tests for the new implementation", "expected": "test-driven-development"},
+    {"id": "s04", "task": "Prepare the mission spec and verification plan", "expected": "shipspec"},
+    {"id": "s05", "task": "Ship the release once checks pass", "expected": "shipspec"},
+    {"id": "s06", "task": "Extract the tables from the document", "expected": "pdf-reading"},
+    {"id": "s07", "task": "Debug the playwright browser test", "expected": "frontend-testing-debugging"},
+    {"id": "s08", "task": "Run the ui checks in the browser", "expected": "frontend-testing-debugging"},
+    {"id": "s09", "task": "Extract the mission spec from the pdf", "expected": "pdf-reading"},
+    {"id": "s10", "task": "Debug the failing implementation shown in the browser", "expected": "test-driven-development"},
+    {"id": "s11", "task": "Parse the invoice file and pull the key figures", "expected": "pdf-reading"},
+    {"id": "s12", "task": "Check the web page renders correctly", "expected": "frontend-testing-debugging"},
+    {"id": "s13", "task": "Confirm the build is ready to cut a release", "expected": "shipspec"},
+    {"id": "s14", "task": "Fix the bugfix regression and add tests", "expected": "test-driven-development"},
+    {"id": "s15", "task": "Open the pdf", "expected": "pdf-reading"}
+  ]
+}

@@ -67,7 +67,7 @@ skill catalog.
 ## 4. Use From Python
 
 ```python
-from skill_router_demo import build_prompt_plan, load_skills_from_manifest, load_subtask_request
+from skill_router import build_prompt_plan, load_skills_from_manifest, load_subtask_request
 
 skills = load_skills_from_manifest("manifests/demo-skills.json")
 request = load_subtask_request("examples/subtasks.json")
